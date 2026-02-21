@@ -5,16 +5,10 @@ export async function getProductos(req, res) {
         const result = await pool.query('SELECT * FROM productos');
         res.json(result.rows);
     } catch (error) {
-<<<<<<< HEAD
         console.error('Error al obtener productos', error);
         res.status(500).json({ error: 'Error al obtener productos' });
-=======
-
-        console.error('Error al obtener los productos', error);
-        res.status(500).json({ error: 'Error al obtener los productos' });
     }
-};
-
+}
 export async function getProducto(req, res) {
     try {
         const result = await pool.query('SELECT * FROM productos WHERE id = $1', [req.params.id]);
@@ -32,6 +26,5 @@ export async function createProducto(req, res) {
     } catch (error) {
         console.error('Error al crear el producto', error);
         res.status(500).json({ error: 'Error al crear el producto' });
->>>>>>> 1bbfdd689f3aabde76ff958b201f5cf61e9554a3
     }
 }
