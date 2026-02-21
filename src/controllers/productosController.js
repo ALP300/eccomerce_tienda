@@ -1,7 +1,6 @@
 import pool from "../config/database.js";
 
 export async function getProductos(req, res) {
-
     try {
         const result = await pool.query('SELECT * FROM productos');
         res.json(result.rows);
