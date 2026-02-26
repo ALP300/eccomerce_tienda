@@ -9,4 +9,31 @@ export async function getProductos(req, res) {
         res.status(500).json({ error: 'Error al obtener productos' });
     }
 }
->>>>>>> 02e8c3be900de3df971945dedbf37618dbb2c327
+
+export async function getProducto(req, res) {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM productos WHERE id = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error('Error al obtener el producto', error);
+        res.status(500).json({ error: 'Error al obtener el producto' });
+    }
+}
+
+export async function createProducto(req, res) {
+    const { nombre, descripcion, precio, stock, imagen_url } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO productos (nombre, descripcion, precio, stock, imagen_url) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [nombre, descripcion, precio, stock, imagen_url]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('Error al crear el producto', error);
+        res.status(500).json({ error: 'Error al crear el producto' });
+    }
+}
