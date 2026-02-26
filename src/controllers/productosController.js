@@ -9,3 +9,4 @@ export async function getProductos(req, res) {
         res.status(500).json({ error: 'Error al obtener productos' });
     }
 }
+>>>>>>> 02e8c3be900de3df971945dedbf37618dbb2c327
