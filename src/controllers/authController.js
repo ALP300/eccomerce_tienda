@@ -11,17 +11,16 @@ export async function registrar(req, res) {
     }
 
     try {
-        // Verificar si el usuario ya existe
+        
         const userExist = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
         if (userExist.rows.length > 0) {
             return res.status(400).json({ error: 'El correo ya está registrado' });
         }
 
-        // Encriptar la contraseña
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Insertar usuario
+       
         const result = await pool.query(
             'INSERT INTO usuarios (nombre, email, password) VALUES ($1, $2, $3) RETURNING id, nombre, email',
             [nombre, email, hashedPassword]
