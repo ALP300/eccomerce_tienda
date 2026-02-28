@@ -3,12 +3,14 @@ import express from "express";
 import { conectar } from "./config/database.js";
 import ecommerceRoutes from "./routes/ecommerceRouters.js";
 import morgan from "morgan";
+import cors from "cors";
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './config/swagger.js';
 
 const app = express();
 
 // Middleware
+app.use(cors()); // Permitir peticiones desde cualquier origen (CORS)
 app.use(morgan("dev"));
 app.use(express.json());
 
