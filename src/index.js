@@ -1,3 +1,4 @@
+import "./loadEnv.js";
 import express from "express";
 import { conectar } from "./config/database.js";
 import ecommerceRoutes from "./routes/ecommerceRouters.js";
