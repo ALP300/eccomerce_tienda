@@ -40,11 +40,11 @@ export async function createPromocion(req, res) {
 
 export async function updatePromocion(req, res) {
     const { id } = req.params;
-    const { nombre, descripcion, precio, stock, imagen_url } = req.body;
+    const { titulo, descripcion, descuento_porcentaje, fecha_inicio, fecha_fin, activo } = req.body;
     try {
         const result = await pool.query(
-            'UPDATE promociones SET nombre = $1, descripcion = $2, precio = $3, stock = $4, imagen_url = $5 WHERE id = $6 RETURNING *',
-            [nombre, descripcion, precio, stock, imagen_url, id]
+            'UPDATE promociones SET titulo = $1, descripcion = $2, descuento_porcentaje = $3, fecha_inicio = $4, fecha_fin = $5, activo = $6 WHERE id = $7 RETURNING *',
+            [titulo, descripcion, descuento_porcentaje, fecha_inicio, fecha_fin, activo, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Promocion no encontrada' });

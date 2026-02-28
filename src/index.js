@@ -3,12 +3,17 @@ import express from "express";
 import { conectar } from "./config/database.js";
 import ecommerceRoutes from "./routes/ecommerceRouters.js";
 import morgan from "morgan";
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger.js';
 
 const app = express();
 
 // Middleware
 app.use(morgan("dev"));
 app.use(express.json());
+
+// Documentación de Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.get('/', (req, res) => res.send('API Ecommerce - Servidor Funcionando'));
